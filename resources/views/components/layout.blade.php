@@ -415,15 +415,25 @@
                     <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Chotot.com</span>
                 </a>
                 <div class="flex items-center lg:order-2">
-                    <a href="/products/manage"
-                        class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800">Manage
-                        products</a>
-                    <span class="mr-4"></span>
-                    <a href="/register"
-                        class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800">Register</a>
-                    <span class="mr-4"></span>
-                    <a href="/login"
-                        class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800">Login</a>
+                    @if (auth()->user())
+                        <p>Hello, <span class="font-extrabold">{{ auth()->user()->name }}</span></p>
+                        <span class="mr-4"></span>
+                        <a href="/products/manage"
+                            class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800">Manage
+                            products</a>
+                    @endif
+                    @if (!auth()->user())
+                        <a href="/register"
+                            class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800">Register</a>
+                        <span class="mr-4"></span>
+                        <a href="/login"
+                            class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800">Login</a>
+                    @endif
+                    @if (auth()->user())
+                        <span class="mr-4"></span>
+                        <a href="/logout"
+                            class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800">Logout</a>
+                    @endif
                     <button data-collapse-toggle="mobile-menu-2" type="button"
                         class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                         aria-controls="mobile-menu-2" aria-expanded="false">
@@ -466,8 +476,20 @@
 
     <footer
         class="fixed bg-purple-200 bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-16 mt-24 opacity-90 md:justify-center">
-        <a href="/create" class="absolute top-1/5 rounded right-10 bg-purple-700 text-white py-2 px-5">Post Product</a>
+        <a href="{{ auth()->user() ? '/products/create' : '/login' }}"
+            class="absolute top-1/5 rounded right-10 bg-purple-700 text-white py-2 px-5">Post
+            Product</a>
     </footer>
+
+    @if (session()->has('success'))
+        <div class="absolute right-0 top-20 h-200 bg-green-500 px-5 py-4 text-white font-bold" id="success-message">
+            @include('partials._toast')
+        </div>
+    @endif
+
+    <script type="text/javascript">
+        window.setTimeout("document.getElementById('success-message').style.display='none';", 3000);
+    </script>
 
 </body>
 
