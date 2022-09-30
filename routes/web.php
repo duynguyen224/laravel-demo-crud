@@ -22,7 +22,7 @@ Route::get('/products/create', [ProductController::class, "create"])->middleware
 Route::post("/products", [ProductController::class, "store"])->middleware("auth");
 Route::get("/products/{product}/edit", [ProductController::class, "edit"])->middleware("auth");
 Route::put("/products/{product}", [ProductController::class, "update"])->middleware("auth");
-Route::get('/products/{product}/show', [ProductController::class, "show"])->middleware("auth");
+Route::get('/products/{product}/show', [ProductController::class, "show"]);
 Route::get('/products/{product}/destroy', [ProductController::class, "showDestroy"])->middleware("auth");
 Route::delete("/products/{product}", [ProductController::class, "destroy"])->middleware("auth");
 Route::get("/products/manage", [ProductController::class, "manage"])->middleware("auth");
@@ -30,6 +30,6 @@ Route::get("/products/manage", [ProductController::class, "manage"])->middleware
 // Route for user
 Route::get('/register', [UserController::class, "index"]);
 Route::post("/users", [UserController::class, "store"]);
-Route::get('/login', [UserController::class, "login"])->middleware("guest");
+Route::get('/login', [UserController::class, "login"])->name('login')->middleware("guest");
 Route::get('/logout', [UserController::class, "logout"])->middleware("auth");
 Route::post("/authenticate", [UserController::class, "authenticate"]);

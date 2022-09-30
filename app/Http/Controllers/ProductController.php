@@ -101,7 +101,7 @@ class ProductController extends Controller
 
         $formFields = $request->validate([
             "name" => "required",
-            "price" => "required",
+            "price" => "required|numeric",
             "category" => "required",
             "description" => "required"
         ]);
