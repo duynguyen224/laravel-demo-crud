@@ -2,7 +2,7 @@
     <!-- Start block -->
     <section class="bg-white dark:bg-gray-900">
         <div class="max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:pt-28">
-            <h3 class="text-xl font-bold">Your product</h3>
+            <h3 class="text-xl font-bold">Your products</h3>
             <div class="mt-6"></div>
             <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -45,6 +45,9 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="grid max-w-screen-xl px-4 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-4 lg:grid-cols-2 lg:pt-20">
+                {{ $products->links() }}
             </div>
         </div>
     </section>

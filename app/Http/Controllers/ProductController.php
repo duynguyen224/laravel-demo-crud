@@ -5,14 +5,34 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     // Register page
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(4);
-        return view("products.index", compact("products"));
+        $keyword = trim($request->get('q'));
+        $selectedCategory = $request->get("category");
+        $categories = DB::table("categories")->get();
+        $products = DB::table('products');
+
+        // Both search keyword and filter by category
+        if (strlen($keyword) && $selectedCategory > 0) {
+            $products = $products->whereRaw(' products.category_id = ? and products.name like ?', ["$selectedCategory", "%$keyword%"]);
+        }
+        // Only filter by category
+        elseif ($selectedCategory > 0) {
+            $products = $products->whereRaw('products.category_id = ?', ["$selectedCategory"]);
+        }
+        // Only search keyword
+        elseif (strlen($keyword)) {
+            $products = $products->whereRaw('products.name like ? ', ["%$keyword%"]);
+        }
+
+        $products = $products->paginate(4);
+
+        return view("products.index", compact("products", "categories", "keyword", "selectedCategory"));
     }
 
     // Create page
@@ -27,7 +47,7 @@ class ProductController extends Controller
     {
         $formFields = $request->validate([
             "name" => "required",
-            "price" => "required",
+            "price" => "required|numeric",
             "category" => "required",
             // 'image' => 'required|mimes:png,jpg,jpeg|max:2048',
             "description" => "required"
@@ -67,7 +87,8 @@ class ProductController extends Controller
     // Manage page
     public function manage()
     {
-        $products = Product::all();
+        $userId = auth()->user()->id;
+        $products = DB::table("products")->whereRaw('products.user_id = ?', ["$userId"])->paginate(4);
         return view("products.manage", compact("products"));
     }
 
@@ -115,6 +136,6 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect("/")->with("success", "Delete selling product successfully");
+        return redirect("/products/manage")->with("success", "Delete selling product successfully");
     }
 }

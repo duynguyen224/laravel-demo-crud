@@ -7,13 +7,6 @@
                 <h2 class="text-sm title-font text-gray-500 tracking-widest">PRODUCT NAME</h2>
                 <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{ $product->name }}</h1>
                 <p class="leading-relaxed">{{ $product->description }}</p>
-                {{-- <ol>
-                    <li>• abc</li>
-                    <li>• abc</li>
-                    <li>• abc</li>
-                    <li>• abc</li>
-                    <li>• abc</li>
-                </ol> --}}
                 <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
                 </div>
                 <div class="flex">
