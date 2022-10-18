@@ -25,7 +25,11 @@ Route::put("/products/{product}", [ProductController::class, "update"])->middlew
 Route::get('/products/{product}/show', [ProductController::class, "show"]);
 Route::get('/products/{product}/destroy', [ProductController::class, "showDestroy"])->middleware("auth");
 Route::delete("/products/{product}", [ProductController::class, "destroy"])->middleware("auth");
+Route::get('/products/import', [ProductController::class, "showImport"]);
+Route::post('/products/import', [ProductController::class, 'import'])->middleware("auth");
 Route::get("/products/manage", [ProductController::class, "manage"])->middleware("auth");
+Route::get('/products/export', [ProductController::class, 'export'])->middleware("auth");
+
 
 // Route for user
 Route::get('/register', [UserController::class, "index"]);

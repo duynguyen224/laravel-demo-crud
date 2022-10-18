@@ -15,6 +15,19 @@
 
     <!-- Styles -->
     <style>
+        #my_file {
+            display: none;
+        }
+
+        #get_file {
+            background: #f9f9f9;
+            border: 5px solid #88c;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
         /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
         html {
             line-height: 1.15;
@@ -489,6 +502,9 @@
 
     <script type="text/javascript">
         window.setTimeout("document.getElementById('success-message').style.display='none';", 3000);
+        document.getElementById('get_file').onclick = function() {
+            document.getElementById('my_file').click();
+        };
     </script>
 
 </body>

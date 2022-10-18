@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductExport;
+use App\Imports\ProductImport;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Validators\ValidationException;
 
 class ProductController extends Controller
 {
@@ -137,5 +141,38 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect("/products/manage")->with("success", "Delete selling product successfully");
+    }
+
+    // Export excel
+    public function export()
+    {
+        return Excel::download(new ProductExport, "products.xlsx");
+    }
+
+
+    public function showImport()
+    {
+        return view("products.import");
+    }
+
+    // Import 
+    public function import(Request $request)
+    {
+        try {
+            Excel::import(new ProductImport, $request->file("product_xlsx_file"));
+        } catch (ValidationException $ex) {
+            $failures = $ex->failures();
+
+            // foreach ($failures as $failure) {
+            //     $failure->row(); // row that went wrong
+            //     $failure->attribute(); // either heading key (if using heading row concern) or column index
+            //     $failure->errors(); // Actual error messages from Laravel validator
+            //     $failure->values(); // The values of the row that has failed.
+            // }
+
+            return back()->withErrors($failures);
+        }
+
+        return redirect('/products/manage')->with('success', 'Imported products successfully!');
     }
 }
