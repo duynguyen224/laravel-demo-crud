@@ -15,11 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 // Route for product
 Route::get('/', [ProductController::class, "index"]);
 Route::get('/products/create', [ProductController::class, "create"])->middleware("auth");
 Route::post("/products", [ProductController::class, "store"])->middleware("auth");
+Route::post("/products/storeInManage", [ProductController::class, "storeInManage"])->middleware("auth");
+
 Route::get("/products/{product}/edit", [ProductController::class, "edit"])->middleware("auth");
 Route::put("/products/{product}", [ProductController::class, "update"])->middleware("auth");
 Route::get('/products/{product}/show', [ProductController::class, "show"]);
@@ -30,10 +31,10 @@ Route::post('/products/import', [ProductController::class, 'import'])->middlewar
 Route::get("/products/manage", [ProductController::class, "manage"])->middleware("auth");
 Route::get('/products/export', [ProductController::class, 'export'])->middleware("auth");
 
-
 // Route for user
 Route::get('/register', [UserController::class, "index"]);
 Route::post("/users", [UserController::class, "store"]);
 Route::get('/login', [UserController::class, "login"])->name('login')->middleware("guest");
 Route::get('/logout', [UserController::class, "logout"])->middleware("auth");
 Route::post("/authenticate", [UserController::class, "authenticate"]);
+Route::get("/verify-account", [UserController::class, "verifyAccount"]);

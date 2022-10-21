@@ -8,6 +8,7 @@
                     placeholder="Search ..." value="{{ $keyword }}">
                 <select name="category" id="category"
                     class="w-48 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    {{-- select2 --}}
                     <option selected disabled>Choose a category</option>
                     <option value="0">All categories</option>
                     @foreach ($categories as $cat)
@@ -39,4 +40,11 @@
         </div>
     </section>
     <!-- End block -->
+
+
+    {{-- Page script --}}
+    @section('scripts')
+        <script type="text/javascript" src="{{ URL::asset('js/product/index.js') }}"></script>
+    @show
+
 </x-layout>

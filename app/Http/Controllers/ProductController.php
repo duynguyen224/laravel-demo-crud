@@ -72,6 +72,25 @@ class ProductController extends Controller
         return redirect("/")->with("success", "Create selling product successfully");
     }
 
+    // Store a product in manage page
+    public function storeInManage(Request $request)
+    {
+        $formFields = $request->validate([
+            "name" => "required",
+            "price" => "required|numeric",
+            "category" => "required",
+            "description" => "required"
+        ]);
+
+        $formFields["user_id"] = auth()->user()->id;
+        $formFields["category_id"] = $request->category;
+
+        // Store the user
+        $product = Product::create($formFields);
+
+        return redirect("/products/manage")->with("success", "Create selling product successfully");
+    }
+
     // Show a product
     public function show($id)
     {
@@ -92,8 +111,9 @@ class ProductController extends Controller
     public function manage()
     {
         $userId = auth()->user()->id;
+        $categories = DB::table("categories")->get();
         $products = DB::table("products")->whereRaw('products.user_id = ?', ["$userId"])->paginate(4);
-        return view("products.manage", compact("products"));
+        return view("products.manage", compact("products", "categories"));
     }
 
     // Update the product
