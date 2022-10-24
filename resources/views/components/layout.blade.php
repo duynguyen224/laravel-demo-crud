@@ -420,6 +420,24 @@
         body {
             font-family: 'Nunito', sans-serif;
         }
+
+        .pagination>li>a {
+            color: #a855f7 !important;
+        }
+
+        .pagination>li>span {
+            color: #fff; // use your own color here
+        }
+
+        .pagination>.active>a,
+        .pagination>.active>a:focus,
+        .pagination>.active>a:hover,
+        .pagination>.active>span,
+        .pagination>.active>span:focus,
+        .pagination>.active>span:hover {
+            background-color: #a855f7 !important;
+            border-color: #a855f7 !important;
+        }
     </style>
 </head>
 
