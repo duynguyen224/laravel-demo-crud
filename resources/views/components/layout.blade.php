@@ -16,6 +16,11 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
+    {{-- jQuery UI cdn --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"
+        integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <!-- Styles -->
     <style>
         #my_file {
@@ -438,6 +443,12 @@
             background-color: #a855f7 !important;
             border-color: #a855f7 !important;
         }
+
+        .ui-state-highlight {
+            height: 4rem;
+            line-height: 4rem;
+            background-color: #a955f742;
+        }
     </style>
 </head>
 
@@ -521,6 +532,11 @@
         </div>
     @endif
 
+    {{-- Toast for ajax call --}}
+    <div class="absolute right-0 top-20 h-200 bg-green-500 px-5 py-4 text-white font-bold" id="success-ajax"
+        style="display: none;">
+    </div>
+
     <script type="text/javascript">
         window.setTimeout("document.getElementById('success-message').style.display='none';", 3000);
         document.getElementById('get_file').onclick = function() {
@@ -535,6 +551,9 @@
 
     {{-- Select2 cdn --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    {{-- jQeury UI --}}
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
     {{-- Page script --}}
     @section('scripts')

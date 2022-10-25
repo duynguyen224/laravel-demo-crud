@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -22,4 +23,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/categories', function () {
     $categories = DB::table("categories")->get();
     return $categories;
+});
+
+Route::post("/products/delete-list-products", function (Request $request) {
+    $itemIds = $request->get('listId');
+
+    foreach ($itemIds as $id) {
+        DB::table("products")->where("id", "=", $id)->delete();
+    }
+
+    $msg = "Delete success " . count($itemIds) . " products";
+
+    return response()->json($msg);
 });
