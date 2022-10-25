@@ -108,11 +108,20 @@ class ProductController extends Controller
 
 
     // Manage page
-    public function manage()
+    public function manage(Request $request)
     {
+        $sortDir = $request->sortDir;
+        $sortBy = $request->sortBy;
+
         $userId = auth()->user()->id;
         $categories = DB::table("categories")->get();
-        $products = DB::table("products")->whereRaw('products.user_id = ?', ["$userId"])->paginate(4);
+
+        if ($sortDir && $sortBy) {
+            $products = DB::table("products")->where('products.user_id', '=', $userId)->orderBy($sortBy, $sortDir)->paginate(4);
+        } else {
+            $products = DB::table("products")->whereRaw('products.user_id = ?', ["$userId"])->paginate(4);
+        }
+
         return view("products.manage", compact("products", "categories"));
     }
 

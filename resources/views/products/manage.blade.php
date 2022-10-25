@@ -20,13 +20,43 @@
                                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
                                         <th scope="col" class="py-3 px-6">
-                                            Id
+                                            <div class="flex flex-row items-center">
+                                                <div class="pr-2">Id</div>
+                                                <div class="flex flex-column">
+                                                    <a
+                                                        href="{{ request()->fullUrlWithQuery(['sortDir' => 'asc', 'sortBy' => 'id']) }}"><i
+                                                            class="text-gray-400 fa-solid fa-sort-up"></i></a>
+                                                    <a
+                                                        href="{{ request()->fullUrlWithQuery(['sortDir' => 'desc', 'sortBy' => 'id']) }}"><i
+                                                            class="text-gray-400 fa-solid fa-sort-down"></i></a>
+                                                </div>
+                                            </div>
                                         </th>
                                         <th scope="col" class="py-3 px-6">
-                                            Product name
+                                            <div class="flex flex-row items-center">
+                                                <div class="pr-2">Product name</div>
+                                                <div class="flex flex-column">
+                                                    <a
+                                                        href="{{ request()->fullUrlWithQuery(['sortDir' => 'asc', 'sortBy' => 'name']) }}"><i
+                                                            class="text-gray-400 fa-solid fa-sort-up"></i></a>
+                                                    <a
+                                                        href="{{ request()->fullUrlWithQuery(['sortDir' => 'desc', 'sortBy' => 'name']) }}"><i
+                                                            class="text-gray-400 fa-solid fa-sort-down"></i></a>
+                                                </div>
+                                            </div>
                                         </th>
                                         <th scope="col" class="py-3 px-6">
-                                            Price
+                                            <div class="flex flex-row items-center">
+                                                <div class="pr-2">Price</div>
+                                                <div class="flex flex-column">
+                                                    <a
+                                                        href="{{ request()->fullUrlWithQuery(['sortDir' => 'asc', 'sortBy' => 'price']) }}"><i
+                                                            class="text-gray-400 fa-solid fa-sort-up"></i></a>
+                                                    <a
+                                                        href="{{ request()->fullUrlWithQuery(['sortDir' => 'desc', 'sortBy' => 'price']) }}"><i
+                                                            class="text-gray-400 fa-solid fa-sort-down"></i></a>
+                                                </div>
+                                            </div>
                                         </th>
                                         <th scope="col" class="py-3 px-6">
                                         </th>
