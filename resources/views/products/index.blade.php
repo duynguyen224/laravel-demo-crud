@@ -26,7 +26,7 @@
                 </button>
             </form>
         </div>
-        <div class="grid max-w-screen-xl px-4 pt-10 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-4 lg:grid-cols-4 lg:pt-20">
+        <div class="grid max-w-screen-2xl px-4 pt-10 pb-8 mx-auto md:gap-2 md:grid-cols-2 lg:gap-4 xl:gap-4 lg:py-4 lg:grid-cols-4 lg:pt-20">
             @if (count($products) > 0)
                 @foreach ($products as $product)
                     <x-card-item :product="$product" />
@@ -40,7 +40,6 @@
         </div>
     </section>
     <!-- End block -->
-
 
     {{-- Page script --}}
     @section('scripts')

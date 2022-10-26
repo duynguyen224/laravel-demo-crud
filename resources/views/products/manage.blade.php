@@ -25,10 +25,10 @@
                                                 <div class="flex flex-column">
                                                     <a
                                                         href="{{ request()->fullUrlWithQuery(['sortDir' => 'asc', 'sortBy' => 'id']) }}"><i
-                                                            class="text-gray-400 fa-solid fa-sort-up"></i></a>
+                                                            class="sort-dir-up-id text-gray-300 fa-solid fa-sort-up"></i></a>
                                                     <a
                                                         href="{{ request()->fullUrlWithQuery(['sortDir' => 'desc', 'sortBy' => 'id']) }}"><i
-                                                            class="text-gray-400 fa-solid fa-sort-down"></i></a>
+                                                            class="sort-dir-down-id text-gray-300 fa-solid fa-sort-down"></i></a>
                                                 </div>
                                             </div>
                                         </th>
@@ -38,10 +38,10 @@
                                                 <div class="flex flex-column">
                                                     <a
                                                         href="{{ request()->fullUrlWithQuery(['sortDir' => 'asc', 'sortBy' => 'name']) }}"><i
-                                                            class="text-gray-400 fa-solid fa-sort-up"></i></a>
+                                                            class="sort-dir-up-name text-gray-300 fa-solid fa-sort-up"></i></a>
                                                     <a
                                                         href="{{ request()->fullUrlWithQuery(['sortDir' => 'desc', 'sortBy' => 'name']) }}"><i
-                                                            class="text-gray-400 fa-solid fa-sort-down"></i></a>
+                                                            class="sort-dir-down-name text-gray-300 fa-solid fa-sort-down"></i></a>
                                                 </div>
                                             </div>
                                         </th>
@@ -51,10 +51,10 @@
                                                 <div class="flex flex-column">
                                                     <a
                                                         href="{{ request()->fullUrlWithQuery(['sortDir' => 'asc', 'sortBy' => 'price']) }}"><i
-                                                            class="text-gray-400 fa-solid fa-sort-up"></i></a>
+                                                            class="sort-dir-up-price text-gray-300 fa-solid fa-sort-up"></i></a>
                                                     <a
                                                         href="{{ request()->fullUrlWithQuery(['sortDir' => 'desc', 'sortBy' => 'price']) }}"><i
-                                                            class="text-gray-400 fa-solid fa-sort-down"></i></a>
+                                                            class="sort-dir-down-price text-gray-300 fa-solid fa-sort-down"></i></a>
                                                 </div>
                                             </div>
                                         </th>

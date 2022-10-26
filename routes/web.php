@@ -37,4 +37,4 @@ Route::post("/users", [UserController::class, "store"]);
 Route::get('/login', [UserController::class, "login"])->name('login')->middleware("guest");
 Route::get('/logout', [UserController::class, "logout"])->middleware("auth");
 Route::post("/authenticate", [UserController::class, "authenticate"]);
-Route::get("/verify-account", [UserController::class, "verifyAccount"]);
+Route::get("/verify-account", [UserController::class, "verifyAccount"])->name('verify_account');

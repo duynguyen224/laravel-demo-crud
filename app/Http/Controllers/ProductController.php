@@ -149,7 +149,7 @@ class ProductController extends Controller
         // Store the product
         $product->update($formFields);
 
-        return redirect("/")->with("success", "Update selling product successfully");
+        return redirect("/products/manage")->with("success", "Update selling product successfully");
     }
 
     // Show page destroy a product

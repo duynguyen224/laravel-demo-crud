@@ -59,4 +59,45 @@ $(document).ready(function () {
             },
         });
     });
+
+    // Highlight color for sorting button
+    // $(".sort-dir-up, .sort-dir-down").on("click", function () {
+    //     let searchParams = new URLSearchParams(window.location.search);
+    //     let sortDir = searchParams.get("sortDir");
+    //     let sortBy = searchParams.get("sortBy");
+    //     $(this).css("color", "red");
+    // });
+
+    // Highlight color for sorting button
+    let searchParams = new URLSearchParams(window.location.search);
+    let sortDir = searchParams.get("sortDir");
+    let sortBy = searchParams.get("sortBy");
+    switch (sortBy) {
+        case "id":
+            if (sortDir == "asc") {
+                $(".sort-dir-up-id").css("color", "purple");
+                break;
+            } else if (sortDir == "desc") {
+                $(".sort-dir-down-id").css("color", "purple");
+                break;
+            }
+        case "name":
+            if (sortDir == "asc") {
+                $(".sort-dir-up-name").css("color", "purple");
+                break;
+            } else if (sortDir == "desc") {
+                $(".sort-dir-down-name").css("color", "purple");
+                break;
+            }
+        case "price":
+            if (sortDir == "asc") {
+                $(".sort-dir-up-price").css("color", "purple");
+                break;
+            } else if (sortDir == "desc") {
+                $(".sort-dir-down-price").css("color", "purple");
+                break;
+            }
+        default:
+            break;
+    }
 });

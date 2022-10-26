@@ -91,6 +91,7 @@ class UserController extends Controller
 
             $user->save();
         }
+        
         return redirect("/login")->with("success", "Verify account successfully!");
     }
 }
