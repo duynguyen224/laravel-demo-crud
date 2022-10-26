@@ -30,14 +30,16 @@ class AutoGoodMorning extends Command
      */
     public function handle()
     {
-        $userId = 6; // hard code 6
+        $users = User::all();
 
-        $user = User::find($userId)->first();
         // dd($user);
-        if ($user != null) {
-            Mail::to($user)->send(new GoodMorningMail($user));
-            return Command::SUCCESS; // 0
+        if (count($users) > 0) {
+            foreach ($users as $user) {
+                Mail::to($user)->send(new GoodMorningMail($user));
+                return Command::SUCCESS; // 0
+            }
         }
+
         return Command::FAILURE; // 1
     }
 }
