@@ -59,7 +59,6 @@ class GoodMorningMail extends Mailable
     public function attachments()
     {
         return [
-            // Attachment::fromStorage('C:\Users\duy.ngd\Downloads\Light.pdf')
             // Attachment::fromPath('C:\Users\duy.ngd\Downloads\Light.pdf')
             //     ->as('Light.pdf')
             //     ->withMime('application/pdf'),
