@@ -144,7 +144,7 @@
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Product name" value="{{ old('name') }}">
                                             @error('name')
-                                                <div class="p-1 text-red-500">{{ $message }}</div>
+                                                <div class="p-1 text-red-500 h-20">{{ $message }}</div>
                                             @enderror
                                         </th>
                                         <td class="py-4 px-6">
@@ -152,7 +152,7 @@
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Product price" value="{{ old('price') }}">
                                             @error('price')
-                                                <div class="p-1 text-red-500">{{ $message }}</div>
+                                                <div class="p-1 text-red-500 h-20">{{ $message }}</div>
                                             @enderror
                                         </td>
                                         <td class="py-4 px-3 text-right">
@@ -172,14 +172,14 @@
                                                 @endforeach
                                             </select>
                                             @error('category')
-                                                <div class="p-1 text-red-500">{{ $message }}</div>
+                                                <div class="p-1 text-red-500 h-20">{{ $message }}</div>
                                             @enderror
                                         </td>
                                         <td class="py-4 px-3">
                                             <textarea name="description" id="description" placeholder="Description" cols="30" rows="2"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{ old('description') }}</textarea>
                                             @error('description')
-                                                <div class="p-1 text-red-500">{{ $message }}</div>
+                                                <div class="p-1 text-red-500 h-20">{{ $message }}</div>
                                             @enderror
                                         </td>
                                         <td class="flex py-4 px-3">

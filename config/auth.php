@@ -40,6 +40,7 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+            // 'remember' => now()->addSeconds(10)->diffInSeconds(),
         ],
     ],
 

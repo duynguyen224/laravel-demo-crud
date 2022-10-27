@@ -56,12 +56,18 @@ class UserController extends Controller
     // Authenticate login user
     public function authenticate(Request $request)
     {
-        $formFields = $request->validate([
+        $request->validate([
             "email" => "required|email:rfc,dns",
             'password' => 'required',
         ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'enabled' => 1])) {
+        // Remember
+        $remember = false;
+        if ($request->remember == "on") {
+            $remember = true;
+        }
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'enabled' => 1], $remember)) {
             $request->session()->regenerate();
             return redirect("/")->with("success", "You are logged in");;
         } else {
