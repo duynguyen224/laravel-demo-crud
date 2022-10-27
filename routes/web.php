@@ -15,7 +15,53 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 // Route for product
+// Route::group(['namespace' => 'App\Http\Controllers'], function () {
+
+//     // Route for Guest and Auth
+//     Route::group(['middleware' => ['guest', 'auth']], function () {
+//         Route::controller(ProductController::class)->group(function () {
+//             Route::get('/', 'index');
+//             Route::get('/{product}/show', 'show');
+//         });
+//     });
+
+
+//     // Guest
+//     Route::group(['middleware' => ['guest']], function () {
+//         // Route for Guest
+//         Route::controller(UserController::class)->group(function () {
+//             Route::get('/register', "index");
+//             Route::post("/users", "store");
+//             Route::get('/login', "login")->name('login');
+//             Route::post("/authenticate", "authenticate");
+//             Route::get("/verify-account", "verifyAccount")->name('verify_account');
+//         });
+//     });
+
+//     // Auth
+//     Route::group(['middleware' => ['auth']], function () {
+//         Route::get('/logout', [UserController::class, "logout"]);
+
+//         Route::group(['prefix' => 'products'], function () {
+//             Route::controller(ProductController::class)->group(function () {
+//                 Route::post("/", "store");
+//                 Route::get('/create', "create");
+//                 Route::post("/storeInManage", "storeInManage");
+//                 Route::get("/{product}/edit", "edit");
+//                 Route::put("/{product}", "update");
+//                 Route::get('/{product}/destroy', "showDestroy");
+//                 Route::delete("/{product}", "destroy");
+//                 Route::get('/import', "showImport");
+//                 Route::post('/import', 'import');
+//                 Route::get("/manage", "manage");
+//                 Route::get('/export', 'export');
+//             });
+//         });
+//     });
+// });
+
 Route::get('/', [ProductController::class, "index"]);
 Route::get('/products/create', [ProductController::class, "create"])->middleware("auth");
 Route::post("/products", [ProductController::class, "store"])->middleware("auth");
