@@ -1,6 +1,10 @@
 <x-layout>
     <!-- Start block -->
     <section class="bg-white dark:bg-gray-900">
+        @if ($errors->any())
+            <span id="error-add-by-plus-btn" style="display: none;">Errors occur, just use to check in jQuery</span>
+        @endif
+
         <div class="max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:pt-28">
             <h3 class="text-xl font-bold">Your products</h3>
             <div class="mt-6 mb-6">
@@ -8,7 +12,7 @@
                     class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800">Import</a>
                 <a href="/products/export"
                     class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800">Export
-                    excel</a>
+                </a>
             </div>
             <div class="grid max-w-screen-xl mb-2 mx-auto lg:gap-8 xl:gap-0 lg:grid-cols-3">
                 <form method="GET" action="/products/manage" class="flex items-center gap-1">
@@ -40,7 +44,7 @@
                     <div class="flex-initial w-full">
                         <form action="/products/storeInManage" method="POST">
                             @csrf
-                            <table class="text-sm text-left text-gray-500 dark:text-gray-400">
+                            <table class="text-sm text-left text-gray-500 dark:text-gray-400 w-full">
                                 <thead
                                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
@@ -132,42 +136,50 @@
                                     @endif
                                     {{-- Row for insert product --}}
                                     {{-- style="display: none;" --}}
-                                    <tr id="flex flex-row items-center rowInsertProduct"
+                                    <tr id="rowInsertProduct" style="display: none;"
                                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             <input type="text" name="name" id="name"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                placeholder="Product name">
+                                                placeholder="Product name" value="{{ old('name') }}">
                                             @error('name')
-                                                <div class="bg-red-500 p-1 text-white">{{ $message }}</div>
+                                                <div class="p-1 text-red-500">{{ $message }}</div>
                                             @enderror
                                         </th>
                                         <td class="py-4 px-6">
                                             <input type="number" name="price" id="price" min="0"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                placeholder="Product price">
+                                                placeholder="Product price" value="{{ old('price') }}">
                                             @error('price')
-                                                <div class="bg-red-500 p-1 text-white">{{ $message }}</div>
+                                                <div class="p-1 text-red-500">{{ $message }}</div>
                                             @enderror
                                         </td>
                                         <td class="py-4 px-3 text-right">
                                             <select name="category"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                 <option selected disabled>Choose a category</option>
-                                                @foreach ($categories as $cate)
-                                                    <option value="{{ $cate->id }}">{{ $cate->name }}</option>
+                                                @foreach ($categories as $cat)
+                                                    @if ($cat->id == old('category'))
+                                                        {
+                                                        <option value="{{ $cat->id }}" selected>
+                                                            {{ $cat->name }}</option>
+                                                        }
+                                                    @else
+                                                        <option value="{{ $cat->id }}">{{ $cat->name }}
+                                                        </option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                             @error('category')
-                                                <div class="bg-red-500 p-1 text-white">{{ $message }}</div>
+                                                <div class="p-1 text-red-500">{{ $message }}</div>
                                             @enderror
                                         </td>
                                         <td class="py-4 px-3">
                                             <textarea name="description" id="description" placeholder="Description" cols="30" rows="2"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{ old('description') }}</textarea>
                                             @error('description')
-                                                <div class="bg-red-500 p-1 text-white">{{ $message }}</div>
+                                                <div class="p-1 text-red-500">{{ $message }}</div>
                                             @enderror
                                         </td>
                                         <td class="flex py-4 px-3">

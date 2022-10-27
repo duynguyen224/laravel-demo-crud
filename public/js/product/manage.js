@@ -9,6 +9,11 @@ $(document).ready(function () {
         window.location.reload();
     });
 
+    // Auto display insert row when have error
+    if ($("#error-add-by-plus-btn").length > 0) {
+        $("#rowInsertProduct").show();
+    }
+
     // Sortable
     $(function () {
         $("#sortable1, #sortable2")
@@ -59,14 +64,6 @@ $(document).ready(function () {
             },
         });
     });
-
-    // Highlight color for sorting button
-    // $(".sort-dir-up, .sort-dir-down").on("click", function () {
-    //     let searchParams = new URLSearchParams(window.location.search);
-    //     let sortDir = searchParams.get("sortDir");
-    //     let sortBy = searchParams.get("sortBy");
-    //     $(this).css("color", "red");
-    // });
 
     // Highlight color for sorting button
     let searchParams = new URLSearchParams(window.location.search);

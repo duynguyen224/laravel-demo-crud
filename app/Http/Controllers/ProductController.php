@@ -51,7 +51,7 @@ class ProductController extends Controller
     {
         $formFields = $request->validate([
             "name" => "required",
-            "price" => "required|numeric",
+            "price" => "required|numeric|min:0",
             "category" => "required",
             "description" => "required",
         ]);
@@ -76,7 +76,7 @@ class ProductController extends Controller
     {
         $formFields = $request->validate([
             "name" => "required",
-            "price" => "required|numeric",
+            "price" => "required|numeric|min:0",
             "category" => "required",
             "description" => "required"
         ]);
@@ -144,7 +144,7 @@ class ProductController extends Controller
             $products = $products->where('products.user_id', "=", $userId);
         }
 
-        $products = $products->select("products.*", "categories.name as category_name")->paginate(4);
+        $products = $products->select("products.*", "categories.name as category_name")->orderBy("products.id", "desc")->paginate(4);
 
         return view("products.manage", compact("products", "categories", "keyword", "selectedCategory"));
     }
@@ -158,7 +158,7 @@ class ProductController extends Controller
 
         $formFields = $request->validate([
             "name" => "required",
-            "price" => "required|numeric",
+            "price" => "required|numeric|min:0",
             "category" => "required",
             "description" => "required"
         ]);
