@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Product;
+use App\Rules\MustBeNumber;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -43,6 +44,9 @@ class ProductImport implements ToModel, WithHeadingRow, WithValidation
         $categoryIds = DB::table('categories')->where('id', '>', 0)->pluck('id')->toArray();
 
         return [
+            'name' => ['required'],
+            'price' => ['required', new MustBeNumber()],
+            'description' => ['required'],
             'category_id' => Rule::in($categoryIds),
         ];
     }
@@ -56,6 +60,7 @@ class ProductImport implements ToModel, WithHeadingRow, WithValidation
 
         return [
             'category_id.in' => 'Not valid :attribute. Category_id must be in [' . implode(", ", $categoryIds) . ']',
+            'price.in' => 'Not valid :attribute. Price must be number]',
         ];
     }
 }

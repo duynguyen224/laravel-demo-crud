@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RegisterUserProcessed;
 use App\Mail\RegisterMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\VarDumper\Caster\RedisCaster;
@@ -39,7 +41,8 @@ class UserController extends Controller
         $user = User::create($formFields);
 
         // Send mail to verify
-        Mail::to($user)->send(new RegisterMail($user));
+        // Mail::to($user)->send(new RegisterMail($user));
+        Event::dispatch(new RegisterUserProcessed($user));
 
         return view("users.confirmation-email");
     }
@@ -91,7 +94,7 @@ class UserController extends Controller
 
             $user->save();
         }
-        
+
         return redirect("/login")->with("success", "Verify account successfully!");
     }
 }

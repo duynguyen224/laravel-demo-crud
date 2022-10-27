@@ -2,10 +2,14 @@
 
 namespace App\Providers;
 
+use App\Events\RegisterUserProcessed;
+use App\Listeners\SendRegisterEmailNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+
+use function Illuminate\Events\queueable;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,6 +22,11 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        // Register for event (key) => (listener)
+        RegisterUserProcessed::class => [
+            SendRegisterEmailNotification::class,
+        ]
     ];
 
     /**
@@ -27,7 +36,16 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Register manually
+        // Event::listen(
+        //     RegisterUserProcessed::class,
+        //     [SendRegisterEmailNotification::class, "handle"]
+        // );
+
+        // Event::listen(queueable(function (RegisterUserProcessed $event) {
+        //     //
+        //     dd("event register user processed");
+        // })->onConnection('redis')->onQueue('podcasts')->delay(now()->addSeconds(10)));
     }
 
     /**
@@ -38,5 +56,6 @@ class EventServiceProvider extends ServiceProvider
     public function shouldDiscoverEvents()
     {
         return false;
+        // return true; // auto discover --> all listener will be scanned
     }
 }

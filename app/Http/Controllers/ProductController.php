@@ -53,8 +53,7 @@ class ProductController extends Controller
             "name" => "required",
             "price" => "required|numeric",
             "category" => "required",
-            // 'image' => 'required|mimes:png,jpg,jpeg|max:2048',
-            "description" => "required"
+            "description" => "required",
         ]);
 
         if ($request->hasFile("product_image")) {
@@ -113,16 +112,41 @@ class ProductController extends Controller
         $sortDir = $request->sortDir;
         $sortBy = $request->sortBy;
 
-        $userId = auth()->user()->id;
+        $keyword = trim($request->get('q'));
+        $selectedCategory = $request->get("category");
         $categories = DB::table("categories")->get();
 
-        if ($sortDir && $sortBy) {
-            $products = DB::table("products")->where('products.user_id', '=', $userId)->orderBy($sortBy, $sortDir)->paginate(4);
-        } else {
-            $products = DB::table("products")->whereRaw('products.user_id = ?', ["$userId"])->paginate(4);
+        $userId = auth()->user()->id;
+
+        $products = DB::table("products")->join("categories", "products.category_id", "=", "categories.id");
+
+        // Both search keyword and filter by category
+        if (strlen($keyword) && $selectedCategory > 0) {
+            $products = $products->where("products.category_id", "=", $selectedCategory)
+                ->where("products.name", "like", "%" . $keyword . "%");
+        }
+        // Only filter by category
+        elseif ($selectedCategory > 0) {
+            $products = $products->where('products.category_id', "=", $selectedCategory);
+        }
+        // Only search keyword
+        elseif (strlen($keyword)) {
+            $products = $products->where('products.name', "like",  "%" . $keyword . "%");
         }
 
-        return view("products.manage", compact("products", "categories"));
+        if ($sortDir && $sortBy) {
+            if ($sortBy == "category") {
+                $sortBy = "category_id";
+            }
+
+            $products = $products->where('products.user_id', '=', $userId)->orderBy($sortBy, $sortDir);
+        } else {
+            $products = $products->where('products.user_id', "=", $userId);
+        }
+
+        $products = $products->select("products.*", "categories.name as category_name")->paginate(4);
+
+        return view("products.manage", compact("products", "categories", "keyword", "selectedCategory"));
     }
 
     // Update the product
@@ -175,7 +199,9 @@ class ProductController extends Controller
     // Export excel
     public function export()
     {
-        return Excel::download(new ProductExport, "products.xlsx");
+        $response =  Excel::download(new ProductExport, "products_export.xlsx", \Maatwebsite\Excel\Excel::XLSX);
+        ob_end_clean();
+        return $response;
     }
 
 
@@ -188,6 +214,12 @@ class ProductController extends Controller
     public function import(Request $request)
     {
         try {
+            // Validate
+            $request->validate([
+                "product_xlsx_file" => "required",
+            ]);
+
+            // Import
             Excel::import(new ProductImport, $request->file("product_xlsx_file"));
         } catch (ValidationException $ex) {
             $failures = $ex->failures();

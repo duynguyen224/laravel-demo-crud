@@ -97,6 +97,14 @@ $(document).ready(function () {
                 $(".sort-dir-down-price").css("color", "purple");
                 break;
             }
+        case "category":
+            if (sortDir == "asc") {
+                $(".sort-dir-up-category").css("color", "purple");
+                break;
+            } else if (sortDir == "desc") {
+                $(".sort-dir-down-category").css("color", "purple");
+                break;
+            }
         default:
             break;
     }
