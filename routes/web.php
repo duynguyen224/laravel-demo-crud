@@ -22,7 +22,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // Route public
     Route::controller(ProductController::class)->group(function () {
         Route::get('/', 'index');
-        Route::get('/{product}/show', 'show');
+        Route::get('/products/{product}/show', 'show');
     });
 
     // Guest

@@ -6,7 +6,7 @@
     </div>
     <div class="px-5 pb-5">
         <a href="#">
-            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ $product->name }}</h5>
+            <a href="/products/{{ $product->id }}/show" class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ $product->name }}</a>
         </a>
         <div class="flex items-center mt-2.5 mb-5">
             <svg aria-hidden="true" class="w-5 h-5 text-yellow-300" fill="currentColor" viewBox="0 0 20 20"
